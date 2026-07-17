@@ -2,6 +2,13 @@
 name = "musutils"
 version = "0.1.0"
 edition = "2024"
+authors = ["Mus <cuteemus@gmail.com>"]
+description = "my rust utils for my rust projects"
+license = "MPL-2.0"
+repository = "https://gitlab.com/cuteemus/musutils"
+keywords = ["utils", "tools"]
+categories = ["development-tools"]
+copyright = "Copyright (c) 2026 Mus"
 
 [dependencies]
 home = "0.5"
