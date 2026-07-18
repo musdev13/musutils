@@ -2,7 +2,6 @@ use std::path::PathBuf;
 use std::sync::Arc;
 use tokio::sync::Semaphore;
 use tokio::task::JoinSet;
-use sha1::{Sha1, Digest};
 
 pub enum HashAlgo {
     None,
@@ -29,6 +28,7 @@ impl AsyncDownloader {
         url: String,
         path: PathBuf,
         hash: Option<String>,
+        success_msg: Option<String>,
     ) {
         let sem = Arc::clone(&self.semaphore);
         let algo = match &self.algo {
@@ -42,26 +42,29 @@ impl AsyncDownloader {
 
             match (algo, hash) {
                 (HashAlgo::Sha1, Some(expected_hash)) => {
-                    loop {
-                        crate::http::download_to(url.clone(), path.clone()).await?;
-
-                        if let Ok(file_bytes) = std::fs::read(&path) {
-                            let mut hasher = Sha1::new();
-                            hasher.update(&file_bytes);
-                            let result = hasher.finalize();
-                            let actual_hash = format!("{:x}", result);
-
-                            if actual_hash == expected_hash {
-                                break;
-                            } else {
-                                let _ = std::fs::remove_file(&path);
-                            }
-                        }
-                    }
+                    crate::http::download_to_sha1(url, path.clone(), expected_hash).await?;
                 }
                 _ => {
-                    crate::http::download_to(url, path).await?;
+                    loop {
+                        if crate::http::download_to(url.clone(), path.clone()).await.is_ok() {
+                            break;
+                        }
+                        tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
+                    }
                 }
+            }
+
+            if let Some(msg) = success_msg {
+                let file_name = path.file_name()
+                    .and_then(|n| n.to_str())
+                    .unwrap_or("");
+                let path_str = path.to_str().unwrap_or("");
+
+                let formatted = msg
+                    .replace("{0}", file_name)
+                    .replace("{1}", path_str);
+
+                println!("{}", formatted);
             }
 
             Ok(())

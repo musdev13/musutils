@@ -1,10 +1,11 @@
-pub async fn get_file(url: String) -> Vec<u8> {
+pub async fn get_file(url: String) -> std::io::Result<Vec<u8>> {
     let response = reqwest::get(url)
         .await
-        .expect("Failed to send request")
-        .bytes()
-        .await
-        .expect("Failed to get bytes from response");
+        .map_err(|e| std::io::Error::new(std::io::ErrorKind::Other, e))?;
 
-    response.to_vec()
+    let bytes = response.bytes()
+        .await
+        .map_err(|e| std::io::Error::new(std::io::ErrorKind::Other, e))?;
+
+    Ok(bytes.to_vec())
 }

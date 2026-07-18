@@ -1,13 +1,14 @@
 use serde_json::Value;
 
-pub async fn get_json_str(url: String) -> String {
-    let response: Value = reqwest::get(url)
+pub async fn get_json_str(url: String) -> std::io::Result<String> {
+    let response = reqwest::get(url)
         .await
-        .expect("Failed to send request")
-        .json()
-        .await
-        .expect("Failed to parse JSON response");
+        .map_err(|e| std::io::Error::new(std::io::ErrorKind::Other, e))?;
 
-    serde_json::to_string_pretty(&response)
-        .expect("Failed to serialize JSON to string")
+    let value: Value = response.json()
+        .await
+        .map_err(|e| std::io::Error::new(std::io::ErrorKind::Other, e))?;
+
+    serde_json::to_string_pretty(&value)
+        .map_err(|e| std::io::Error::new(std::io::ErrorKind::Other, e))
 }
