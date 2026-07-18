@@ -28,6 +28,7 @@ impl AsyncDownloader {
         url: String,
         path: PathBuf,
         hash: Option<String>,
+        task_start_msg: Option<String>,
         success_msg: Option<String>,
     ) {
         let sem = Arc::clone(&self.semaphore);
@@ -39,6 +40,18 @@ impl AsyncDownloader {
         self.join_set.spawn(async move {
             let _permit = sem.acquire_owned().await
                 .map_err(|e| std::io::Error::new(std::io::ErrorKind::Other, e))?;
+
+            let file_name = path.file_name()
+                .and_then(|n| n.to_str())
+                .unwrap_or("");
+            let path_str = path.to_str().unwrap_or("");
+
+            if let Some(msg) = task_start_msg {
+                let formatted = msg
+                    .replace("{0}", file_name)
+                    .replace("{1}", path_str);
+                println!("{}", formatted);
+            }
 
             match (algo, hash) {
                 (HashAlgo::Sha1, Some(expected_hash)) => {
@@ -55,15 +68,9 @@ impl AsyncDownloader {
             }
 
             if let Some(msg) = success_msg {
-                let file_name = path.file_name()
-                    .and_then(|n| n.to_str())
-                    .unwrap_or("");
-                let path_str = path.to_str().unwrap_or("");
-
                 let formatted = msg
                     .replace("{0}", file_name)
                     .replace("{1}", path_str);
-
                 println!("{}", formatted);
             }
 
