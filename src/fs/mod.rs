@@ -7,6 +7,8 @@ mod normalize_path;
 mod write;
 mod remove_dir_all;
 mod write_bytes;
+mod copy;
+mod copy_dir_all;
 
 pub mod config;
 
@@ -19,3 +21,5 @@ pub use normalize_path::normalize_path;
 pub use write::write;
 pub use remove_dir_all::remove_dir_all;
 pub use write_bytes::write_bytes;
+pub use copy::copy;
+pub use copy_dir_all::copy_dir_all;
