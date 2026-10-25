@@ -1,0 +1,52 @@
+use std::fmt;
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum Colors {
+    Green,
+    Yellow,
+    Blue,
+    Lime,
+    Gold,
+    Cyan,
+    Red,
+    Orange,
+    Purple,
+    Rose,
+    Gray,
+    Reset,
+}
+
+impl Colors {
+    pub fn as_term_code(&self) -> &'static str {
+        match self {
+            Colors::Green => "\x1b[32m",
+            Colors::Yellow => "\x1b[33m",
+            Colors::Blue => "\x1b[34m",
+            Colors::Lime => "\x1b[92m",
+            Colors::Gold => "\x1b[38;5;220m",
+            Colors::Cyan => "\x1b[36m",
+            Colors::Red => "\x1b[31m",
+            Colors::Orange => "\x1b[38;5;208m",
+            Colors::Purple => "\x1b[35m",
+            Colors::Rose => "\x1b[95m",
+            Colors::Gray => "\x1b[90m",
+            Colors::Reset => "\x1b[0m",
+        }
+    }
+}
+
+impl fmt::Display for Colors {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.write_str(self.as_term_code())
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn display_is_term_code() {
+        assert_eq!(Colors::Green.to_string(), Colors::Green.as_term_code());
+    }
+}

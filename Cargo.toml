@@ -1,6 +1,6 @@
 [package]
 name = "musutils"
-version = "0.4.0"
+version = "0.5.0"
 edition = "2024"
 authors = ["Mus <cuteemus@gmail.com>"]
 description = "my rust utils for my rust projects"
@@ -8,12 +8,26 @@ license = "MPL-2.0"
 repository = "https://gitlab.com/cuteemus/musutils"
 keywords = ["utils", "tools"]
 categories = ["development-tools"]
-copyright = "Copyright (c) 2026 Mus"
 
 [dependencies]
 home = "0.5"
-serde_json = "1.0.150"
+serde_json = "1.0.154"
 serde = { version = "1.0", features = ["derive"] }
-reqwest = { version = "0.12", features = ["json"] }
-sha1 = "0.10"
+reqwest = { version = "0.13", features = ["json"] }
+sha1 = "0.11"
 tokio = { version = "1", features = ["full"] }
+
+[features]
+default = []
+fs-v1 = []
+fs-v2 = []
+vec-v1 = []
+vec-v2 = []
+http-v1 = []
+http-v2 = []
+color-v1 = []
+color-v2 = []
+os-v1 = []
+os-v2 = []
+types-v1 = []
+types-v2 = []
