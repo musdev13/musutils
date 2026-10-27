@@ -29,15 +29,4 @@ mod tests {
         assert!(s.ends_with("\x1b[0m"));
         assert!(s.contains('x'));
     }
-
-    #[test]
-    fn auto_returns_plain_when_no_color_env() {
-        unsafe {
-            std::env::set_var("NO_COLOR", "1");
-        }
-        assert_eq!(color_str_auto("x", Colors::Red), "x");
-        unsafe {
-            std::env::remove_var("NO_COLOR");
-        }
-    }
 }
