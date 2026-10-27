@@ -1,6 +1,9 @@
 site_name: musutils
 site_description: Rust utilities for your projects
 
+exclude_docs: |
+  README.md
+
 plugins:
   - search
 
