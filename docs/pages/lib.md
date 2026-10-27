@@ -104,7 +104,7 @@ Because the `if` is part of the macro body (not a match arm), the formatted argu
 
 ## Feature matrix
 
-The crate root is always compiled. The module namespaces (`musutils::color`, `musutils::fs`, …) appear only when the corresponding `<module>-v1` or `<module>-v2` feature is enabled. See [Features](pages/getting-started/features.md) for the full dependency graph.
+The crate root is always compiled. The module namespaces (`musutils::color`, `musutils::fs`, …) appear only when the corresponding `<module>-v1` or `<module>-v2` feature is enabled. See [Features](getting-started/features.md) for the full dependency graph.
 
 ## See also
 
