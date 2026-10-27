@@ -1,25 +1,12 @@
-mod test;
-mod is_exist;
-mod new_dir;
-mod tilda_desir;
-mod get_curr_dir;
-mod normalize_path;
-mod write;
-mod remove_dir_all;
-mod write_bytes;
-mod copy;
-mod copy_dir_all;
+#[cfg(all(feature = "fs-v1", feature = "fs-v2"))]
+compile_error!("features `fs-v1` and `fs-v2` are mutually exclusive; enable exactly one");
 
-pub mod config;
+#[cfg(feature = "fs-v1")]
+pub mod v1;
+#[cfg(feature = "fs-v2")]
+pub mod v2;
 
-pub use test::test;
-pub use tilda_desir::tilda_desir;
-pub use is_exist::is_exist;
-pub use new_dir::new_dir;
-pub use get_curr_dir::get_curr_dir;
-pub use normalize_path::normalize_path;
-pub use write::write;
-pub use remove_dir_all::remove_dir_all;
-pub use write_bytes::write_bytes;
-pub use copy::copy;
-pub use copy_dir_all::copy_dir_all;
+#[cfg(feature = "fs-v1")]
+pub use self::v1::*;
+#[cfg(all(feature = "fs-v2", not(feature = "fs-v1")))]
+pub use self::v2::*;
