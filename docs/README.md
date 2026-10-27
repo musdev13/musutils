@@ -77,7 +77,7 @@ Full documentation lives in the [`docs/`](docs/) directory of this repository:
 - [Core API](docs/pages/lib.md) — `available_modules()`, `VERSION`, the `log!` macro, and other top-level items.
 - [Modules overview](docs/pages/modules/index.md) — the full list of modules and their generations.
 
-The same content is served as a static site when the MkDocs site is built from `mkdocs.yml`.
+The same content is served as a [static site](https://musdev13.github.io/musutils/) when the MkDocs site is built from `mkdocs.yml`.
 
 ## Building and testing
 
