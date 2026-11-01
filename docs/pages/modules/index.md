@@ -48,7 +48,7 @@ The lists below are summaries. Each generation has its own page with the full AP
 ### `vec`
 
 - **v1** — `get_page` (0-based) and `print_json_as_table` (prints to stdout).
-- **v2** — adds 1-based `page` returning `Result<_, PageError>`, and `json_as_table` returning `Result<String, TableError>` with column widths that adapt to the data.
+- **v2** — adds 1-based `page` returning `Result<_, PageError>`, `json_as_table` returning `Result<String, TableError>` with column widths that adapt to the data, and `compact_json_value` for short single-line value rendering (used for table cells).
 
 ## Enabling modules
 

@@ -1,8 +1,10 @@
+mod compact;
 mod error;
 mod get_page;
 mod page;
 mod table;
 
+pub use compact::compact_json_value;
 pub use error::{PageError, TableError};
 pub use get_page::get_page;
 pub use page::page;

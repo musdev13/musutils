@@ -192,7 +192,7 @@ mod v2 {
         let t = json_as_table(&data).unwrap();
         assert!(t.contains('5'));
         assert!(t.contains("true"));
-        assert!(t.contains("null"));
+        assert!(t.contains('-'));
         assert!(t.contains("hi"));
     }
 

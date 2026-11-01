@@ -7,10 +7,7 @@ fn width_of(s: &str) -> usize {
 }
 
 fn value_to_string(v: &Value) -> String {
-    match v {
-        Value::String(s) => s.clone(),
-        other => other.to_string(),
-    }
+    super::compact::compact_json_value(v, 64)
 }
 
 pub fn json_as_table(json_vec: &[Value]) -> Result<String, TableError> {

@@ -15,7 +15,7 @@ The crate is **modular**. Every module is optional and enabled through Cargo fea
 - **`http`** — `get_file`, `get_json_str`, `get_github_json_str`, `download_to`, SHA-1-verified `download_to_sha1`, and an `AsyncDownloader` with bounded concurrency. v2 adds a shared client, typed `HttpError`, and bounded retries.
 - **`os`** — `get_os()` / `get_arch()` returning `OS` / `Arch` enums. v2 adds `Debug`, `Display`, `Eq`, `Hash`, and `as_str()`.
 - **`types`** — `Status` labels with optional ANSI coloring, `deoption`, and `draw` / `draw_colored`. v2 adds `Display` and `Eq`/`Hash` on `Status`.
-- **`vec`** — pagination (`get_page`, `page`) and JSON table rendering (`json_as_table`, `print_json_as_table`).
+- **`vec`** — pagination (`get_page`, `page`), JSON table rendering (`json_as_table`, `print_json_as_table`) and value compaction (`compact_json_value`).
 
 ## Installation
 
